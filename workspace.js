@@ -80,3 +80,6 @@ async function load(){
  }catch(e){$('error').textContent='读取失败：'+e.message;if(!payload)$('account-detail').innerHTML='<div class="empty-table">暂时无法读取模拟账本，请点击刷新数据。</div>'}finally{button.disabled=false}
 }
 $('refresh').onclick=load;load();
+
+// Execution remains behind GitHub authorization; never embed access tokens in this public site.
+$("execute-paper").onclick=()=>$("trade-dialog").showModal();

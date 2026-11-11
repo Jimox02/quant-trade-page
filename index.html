@@ -24,9 +24,18 @@
 <header class="topbar"><a href="#overview" class="brand" aria-label="Quant V3 首页"><span class="brand-mark"><svg class="icon"><use href="#i-logo"/></svg></span><span>QUANT <small>RESEARCH / V3.0</small></span></a><div class="top-path"><span>交易终端</span><span>/</span><strong>模拟工作台</strong></div><div class="top-right"><span class="tag"><i></i> DAILY PAPER</span><div class="clock"><time id="clock">—</time><small>北京时间 · UTC+8</small></div></div></header>
 <nav class="rail" aria-label="页面导航"><a href="#overview" title="账户总览" aria-label="账户总览"><svg class="icon"><use href="#i-grid"/></svg></a><a href="#accounts-section" title="模型账户" aria-label="模型账户"><svg class="icon"><use href="#i-layers"/></svg></a><a href="#performance" title="表现分析" aria-label="表现分析"><svg class="icon"><use href="#i-chart"/></svg></a><a href="#ledger" title="交易账本" aria-label="交易账本"><svg class="icon"><use href="#i-orders"/></svg></a><span class="rail-bottom">QUANT V3</span></nav>
 <main class="workspace" id="overview">
-<section class="hero"><div><span class="eyebrow">PAPER TRADING / MODEL ACCOUNTS</span><h1>模拟交易工作台</h1><p>一个策略，一个独立账户。追踪每次决策与资金变化。</p></div><div class="hero-tools"><div class="update-stamp">展示数据更新<br><span id="updated">正在读取…</span></div><button class="ghost" id="refresh"><svg class="icon"><use href="#i-refresh"/></svg>刷新数据</button></div></section>
+<section class="hero"><div><span class="eyebrow">PAPER TRADING / MODEL ACCOUNTS</span><h1>模拟交易工作台</h1><p>一个策略，一个独立账户。追踪每次决策与资金变化。</p></div><div class="hero-tools"><div class="update-stamp">展示数据更新<br><span id="updated">正在读取…</span></div><button class="trade-action" id="execute-paper"><svg class="icon"><use href="#i-trade"/></svg>执行模拟交易</button><button class="ghost" id="refresh"><svg class="icon"><use href="#i-refresh"/></svg>刷新数据</button></div></section>
 <div id="error" class="banner warn" role="alert"></div>
 <section id="accounts-section" aria-label="模型账户"><div class="section-caption"><h2><svg class="icon"><use href="#i-layers"/></svg>策略账户 <span class="muted" id="account-count"></span></h2><span>独立资金 · 独立持仓 · 独立订单</span></div><div class="accounts" id="accounts" role="radiogroup" aria-label="切换模拟账户"></div></section>
 <section id="account-detail" aria-label="当前账户详情"><div class="loading">正在读取已归档的模拟账本…</div></section>
 <footer class="footer"><span><svg class="icon"><use href="#i-shield"/></svg>日线假设模拟 · 非真实成交 · 严格历史回测门禁保留</span><span id="footer-date">QUANT V3 / CLOUD RESEARCH TERMINAL</span></footer>
-</main><script src="./workspace.js"></script></body></html>
+</main>
+<dialog id="trade-dialog" aria-labelledby="trade-title">
+<form method="dialog"><button class="ghost dialog-close" aria-label="关闭交易说明">关闭</button></form>
+<span class="eyebrow">CLOUD PAPER EXECUTION</span><h2 id="trade-title">运行现有策略模拟交易</h2>
+<p>运行范围：原六因子日线账户及四个独立日线研究账户。页面当前选中的账户不会限制任务运行范围。</p>
+<ol><li>点击下方按钮，登录有仓库权限的 GitHub 账号。</li><li>在 <strong>Daily paper account</strong> 页面点击 <strong>Run workflow</strong>，选择 <strong>main</strong>，再确认运行。</li><li>等待任务完成后返回本页，点击“刷新数据”查看已保存结果。网页发布可能稍有延迟。</li></ol>
+<p class="trade-caution">这是日线策略任务，不是即时买卖。任务仍遵循交易日、事前计划及数据完整性检查；运行不保证产生新成交，同日重跑不会重复结算。若任务阻断，请查看任务日志。</p>
+<a class="trade-action trade-launch" href="https://github.com/Jimox02/quant-v3/actions/workflows/paper-daily.yml" target="_blank" rel="noopener noreferrer">打开 GitHub 执行任务 ↗</a>
+<p class="trade-footnote">公开页面可供任何人查看；执行任务需要 GitHub 仓库权限。此按钮仅打开任务页面，不会在后台自动下单或显示虚假的执行成功。</p>
+</dialog><script src="./workspace.js"></script></body></html>
