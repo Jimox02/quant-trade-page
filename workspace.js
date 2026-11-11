@@ -82,4 +82,30 @@ async function load(){
 $('refresh').onclick=load;load();
 
 // Execution remains behind GitHub authorization; never embed access tokens in this public site.
-$("execute-paper").onclick=()=>$("trade-dialog").showModal();
+
+
+// Install after workspace.js once the execution endpoint is deployed.
+// Add <meta name="paper-execution-endpoint" content="https://YOUR-WORKER.workers.dev/execute">.
+(() => {
+  const button=document.getElementById('execute-paper');
+  const status=document.createElement('p');
+  status.id='execute-status';status.setAttribute('role','status');
+  status.setAttribute('aria-live','polite');
+  document.querySelector('.hero').after(status);
+  let busy=false;
+  button.onclick=async()=> {
+    if(busy)return;
+    const endpoint=document.querySelector('meta[name="paper-execution-endpoint"]')?.content;
+    if(!endpoint){status.textContent='执行接口尚未上线，请稍后重试。';return;}
+    busy=true;button.disabled=true;button.textContent='正在提交…';
+    status.textContent='正在请求云端模拟交易…';
+    try {
+      const response=await fetch(endpoint,{method:'POST',headers:{'Content-Type':'application/json'},body:'{}',signal:AbortSignal.timeout(20000)});
+      const result=await response.json();
+      if(!response.ok)throw Error(result.error||'执行请求失败');
+      status.textContent=result.message;
+      // Accepting a request is not a fill. Keep archived results until the publisher updates them.
+    } catch(error) {status.textContent='未确认提交结果：'+error.message+'。请稍后刷新账本查看。';}
+    finally{busy=false;button.disabled=false;button.textContent='执行模拟交易';}
+  };
+})();
